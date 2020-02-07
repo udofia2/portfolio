@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
+const ejs = require("ejs");
 const dotenv = require("dotenv").config({ path: "config.env" });
 
 const app = express();
@@ -9,7 +10,13 @@ mongoose.connect(db, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
-console.log(dotenv);
+
+app.set('view engine', 'ejs');
+app.set('views', 'views')
+
+app.get('/', (req, res) => {
+  res.render('index')
+})
 
 app.use(express.static(path.join(__dirname, "public")));
 
